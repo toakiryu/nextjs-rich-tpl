@@ -11,7 +11,7 @@ const variants = {
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      className="w-full h-full min-h-[calc(100dvh-64px)]"
+      className="w-full h-full"
       variants={variants}
       initial="hidden"
       animate="enter"

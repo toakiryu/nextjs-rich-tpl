@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 // config
 import config from "../../../richtpl.config";
@@ -14,13 +12,19 @@ import { getMessages, getTranslations } from "next-intl/server";
 // next-theme
 import { ThemeProvider } from "next-themes";
 
-// ui
-import { TooltipProvider } from "@/components/ui/tooltip";
-import Header from "@/components/nav/header";
-import Footer from "@/components/nav/footer";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export type LayoutProps = {
   locale: string;
@@ -30,7 +34,7 @@ export async function generateMetadata(props: {
   params: LayoutProps;
 }): Promise<Metadata> {
   const { locale } = await props.params;
-  const t = await getTranslations({ locale, namespace: "Metadata" });
+  const t = await getTranslations({ locale, namespace: "metadata" });
 
   const header = await headers();
   const pathname = header.get("x-pathname");
@@ -74,9 +78,9 @@ export async function generateMetadata(props: {
       config.themeConfig?.metadata?.referrer || "origin-when-cross-origin",
     keywords: config.themeConfig?.metadata?.keywords || ["Vercel", "Next.js"],
     authors: config.themeConfig?.metadata?.authors || [
-      { name: "Fun117", url: "https://fun117.dev" },
+      { name: "Toa Kiryu", url: "https://toakiryu.com" },
     ],
-    creator: config.themeConfig?.metadata?.creator || "Fun117",
+    creator: config.themeConfig?.metadata?.creator || "Toa Kiryu",
     icons: config.favicon || "/favicon.ico",
     generator: config.themeConfig?.metadata?.generator || "Next.js",
     publisher: config.themeConfig?.metadata?.publisher || "Vercel",
@@ -112,7 +116,7 @@ export async function generateMetadata(props: {
       site: `@${
         config.themeConfig?.metadata?.twitter?.site ||
         config.themeConfig?.metadata?.creator ||
-        "Fun_117"
+        "toakiryu"
       }`,
       title:
         config.themeConfig?.metadata?.twitter?.title ||
@@ -125,7 +129,7 @@ export async function generateMetadata(props: {
       creator: `@${
         config.themeConfig?.metadata?.twitter?.creator ||
         config.themeConfig?.metadata?.creator ||
-        "Fun_117"
+        "toakiryu"
       }`,
       images:
         config.themeConfig.metadata?.twitter?.images ||
@@ -138,10 +142,10 @@ export async function generateMetadata(props: {
 export default async function LocaleLayout({
   children,
   params,
-}: {
+}: Readonly<{
   children: React.ReactNode;
   params: LayoutProps;
-}) {
+}>) {
   const { locale } = await params;
   if (!routing.locales.includes(locale as any)) {
     notFound();
@@ -154,23 +158,16 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${inter.className} relative w-full h-full min-h-dvh overflow-x-clip`}
+        className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
           defaultTheme={config.themeConfig.colorMode.defaultMode}
-          enableSystem
-          disableTransitionOnChange
+          {...config.themeConfig.colorMode.custom}
         >
           <NextIntlClientProvider messages={messages}>
-            <TooltipProvider>
-              <Header />
-              <main className="w-full h-full min-h-[calc(100dvh-64px)]">
-                {children}
-              </main>
-              <Footer />
-            </TooltipProvider>
+            <main className="w-full h-full">{children}</main>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

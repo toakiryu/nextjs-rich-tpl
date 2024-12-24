@@ -1,5 +1,5 @@
 import { Metadata, MetadataRoute } from "next";
-import { HTMLAttributeAnchorTarget } from "react";
+import { ThemeProviderProps } from "next-themes";
 
 /**
  * Internationalization (i18n) configuration type.
@@ -22,104 +22,23 @@ type localeConfig = {
   path: string; // URL path prefix for the locale
 };
 
-type SearchCommand = {
-  label: string;
-  i18n_text?: boolean;
-  items: SearchCommandItem[];
-};
-
-type SearchCommandItem = {
-  label: string; // Label for the item
-  icon: React.ReactNode; // Icon for the item
-  action?: () => void; // Action to be performed when the item is clicked
-  href?: string; // URL for the item
-  target?: HTMLAttributeAnchorTarget; // Target attribute for the link (optional)
-  i18n_text?: boolean; // Whether the text should be localizedL
-};
-
-/**
- * Header configuration type.
- * Defines title, logo, and navigation items for the header.
- */
-type Header = {
-  title: string; // Header title
-  logo?: {
-    href?: string; // URL
-    type?: "Vercel&Next.js"; // Type of logo
-    content?: React.ReactNode | React.JSX.Element; // Logo content
-  };
-  items?: {
-    nav?: NavItem[]; // Array of navigation items on the left side
-    project?: {
-      repository?: "block" | "hidden"; // Visibility of the repository link
-    };
-  };
-  hiddenPages?: string[];
-};
-
-/**
- * Footer configuration type.
- * Defines title, logo, social links, and navigation items for the footer.
- */
-type Footer = {
-  // Title for the footer
-  title: string; // Footer title
-  // Logo configuration
-  logo?: {
-    href?: string; // URL
-    type?: "Vercel"; // Type of logo
-    i18n?: boolean; // Whether the logo should be localized
-    content?: React.ReactNode | React.JSX.Element; // Logo content
-  };
-  // Social links configuration
-  social?: {
-    github?: boolean; // Whether to include a GitHub link
-    twitter?: string; // Twitter handle
-  };
-  // Footer text configuration
-  footerText?: {
-    text?: string; // Footer tex
-    i18n?: boolean; // Whether the footer text should be localized
-  };
-  // Footer navigation items
-  items?: {
-    title: string; // Title of the navigation section
-    title_i18n?: boolean; // Whether the title should be localized
-    contents?: NavItem[]; // Array of navigation items in the section
-  }[];
-  hiddenPages?: string[];
-};
-
 /**
  * Theme configuration type.
  * Defines color mode settings, social card image, metadata, header, and footer.
  */
 type ThemeConfig = {
   colorMode: {
-    defaultMode: "light" | "dark" | "system"; // Default color mode
+    defaultMode: "light" | "dark" | "system" | string; // Default color mode
     selectSwitch: boolean; // Whether to allow switching color modes
+    custom?: ThemeProviderProps;
   };
   image?: string; // Social card image URL
   metadata?: Metadata; // Metadata for the site
-  SearchCommand?: SearchCommand[];
-  header?: Header; // Header configuration
-  footer?: Footer; // Footer configuration
   sitemap?: {
     // List of directories to exclude from the sitemap
     excludedDirs?: string[];
   };
-  robots?: MetadataRoute.Robots
-};
-
-/**
- * Navigation item type for header and footer.
- * Defines label, URL path or external link, target, and i18n settings.
- */
-type NavItem = {
-  label: string; // Display label for the navigation item
-  href?: string; // External URL
-  target?: HTMLAttributeAnchorTarget; // Link target attribute
-  i18n_text?: boolean; // Whether the text should be localized
+  robots?: MetadataRoute.Robots;
 };
 
 /**
