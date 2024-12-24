@@ -1,25 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { getCookie } from "cookies-next/client";
-import { usePathname } from "@/i18n/routing";
-import config from "../../richtpl.config";
+import { Spinner } from "@nextui-org/react";
 
 export default function NotFoundPage() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const params = useParams();
-  const preLang = getCookie("NEXT_LOCALE");
-  const useLang = preLang || window.navigator.language.slice(0, 2);
-  const isLang = config.i18n.locales.some((lang) => lang === useLang);
-  const redirectUrl = `/${isLang ? useLang : config.i18n.defaultLocale}/${
-    params.locale
-  }${pathname}`;
 
-  useEffect(() => {
-    router.replace(redirectUrl);
-  }, []);
-
-  return null;
+  return (
+    <html>
+      <body>
+        <div className="flex justify-center items-center w-full h-dvh">
+          <div className="flex justify-center items-center">
+            <Spinner size="sm" className="mr-2" />
+            <h1>Redirect...</h1>
+          </div>
+        </div>
+      </body>
+    </html>
+  );
 }
