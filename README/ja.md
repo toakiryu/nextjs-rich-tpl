@@ -30,15 +30,12 @@
 </p>
 
 <div align="center">
-  <img alt="Release version" src="https://img.shields.io/github/v/release/toakiryu/nextjs-rich-tpl?style=social">
-  <img alt="Commit activity" src="https://img.shields.io/github/commit-activity/t/toakiryu/nextjs-rich-tpl?style=social">
-  <img alt="Last commit" src="https://img.shields.io/github/last-commit/toakiryu/nextjs-rich-tpl?style=social">
+  <img alt="Release version" src="https://img.shields.io/github/v/release/toakiryu/nextjs-rich-tpl">
+  <img alt="Commit activity" src="https://img.shields.io/github/commit-activity/t/toakiryu/nextjs-rich-tpl">
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/toakiryu/nextjs-rich-tpl">
+  <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/toakiryu/nextjs-rich-tpl">
+  <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues-pr/toakiryu/nextjs-rich-tpl">
 </div>
-
-<p align="center">
-  <img alt="Desktop light image" src="https://github.com/toakiryu/nextjs-rich-tpl/blob/main/public/image/upload/preview/ja-light-fullscreen.png">
-  <img alt="Desktop dark image" src="https://github.com/toakiryu/nextjs-rich-tpl/blob/main/public/image/upload/preview/ja-dark-fullscreen.png">
-</p>
 
 # Next.js リッチテンプレート
 
@@ -51,14 +48,6 @@
 - **サイトマップ**: SEO 向上のために自動生成されるサイトマップ。
 - **レスポンシブデザイン**: Tailwind CSS を使用し、すべてのデバイスでのレスポンシブなデザインを実現。
 - **最適化されたパフォーマンス**: 最新の Web 標準を活用してパフォーマンスを向上。
-
-## はじめに
-
-このテンプレートを使い始めるには、以下の手順に従ってください：
-
-1. リポジトリをクローンします。
-2. 依存関係をインストールします： `npm install` または `yarn install`
-3. 開発サーバーを開始します： `npm run dev` または `yarn dev`
 
 ## プロジェクト概要
 
@@ -82,7 +71,7 @@
 npm install -g nextjs-rich-tpl
 ```
 
-### CLIの使い方
+### CLI の使い方
 
 プロジェクトを作成するには、以下のコマンドを実行します。
 
@@ -96,12 +85,6 @@ npx nextjs-rich-tpl
 2. プロジェクト名の入力
 3. プロジェクトの作成と依存関係のインストール
 
-<!-- プロジェクトをブートストラップするには、リポジトリをクローンします：
-
-```bash
-git clone https://github.com/toakiryu/nextjs-rich-tpl.git
-``` -->
-
 クラウドにデプロイするには、[Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) を使用してください（公式 [documentation](https://nextjs.org/docs/deployment) を参照）。
 
 # コントリビュート
@@ -114,135 +97,4 @@ Next.js コミュニティや、このテンプレートをサポートしてく
 
 # お問い合わせ
 
-質問やコントリビュートに関しては、[こちらのサイト](https://toakiryu.dev/en/contacts)からご連絡ください。
-
----
-
-# ドキュメント
-
-### 1. `richtpl.tsx` 設定ガイド
-
-1. **プロジェクトのルートに`richtpl.tsx`を配置**
-
-プロジェクトのルートに、テンプレート設定ファイル `richtpl.tsx` を配置します。このファイルでは、サイトの国際化設定やテーマ設定を行います。
-
-```typescript
-export default {
-  title: "My Project",
-  tagline: "The best project ever!",
-  url: "https://myproject.com",
-  organizationName: "MyOrganization",
-  projectName: "my-project",
-  i18n: {
-    defaultLocale: "en",
-    locales: ["en", "ja"],
-    localeConfigs: {
-      en: { label: "English", htmlLang: "en", path: "en" },
-      ja: { label: "日本語", htmlLang: "ja", path: "ja" },
-    },
-  },
-  themeConfig: {
-    colorMode: {
-      defaultMode: "light",
-      selectSwitch: true,
-    },
-    header: {
-      title: "My Project",
-      logo: {
-        href: "/",
-        type: "Vercel&Next.js",
-      },
-    },
-    footer: {
-      title: "My Footer",
-      social: {
-        github: true,
-        twitter: "my_twitter_handle",
-      },
-    },
-  },
-};
-```
-
-2. **i18n 設定**
-
-- defaultLocale は、デフォルトで使用される言語を指定します。
-- locales はサポートする言語の配列を指定し、localeConfigs では各言語の設定を定義します。
-- path で URL パスのプレフィックスを設定します。たとえば、日本語のページは /ja にリダイレクトされます。
-
-3. **テーマ設定**
-
-- colorMode は、ダークモードやシステムに応じたテーマ切り替えを制御します。
-- header や footer では、サイトのヘッダーとフッターのロゴやナビゲーションを設定できます。
-
-### 2. `middleware.ts` 設定ガイド
-
-1. **ロケール対応のミドルウェア設定**
-
-`next-intl`を用いて国際化を実現するために、`middleware.ts`にロケール対応の設定を行います。このミドルウェアは、URL に基づいて適切な言語設定を適用します。
-
-```typescript
-import createMiddleware from "next-intl/middleware";
-import { locales, localePrefix, pathnames } from "@/components/provider/nav";
-import richtplConfig from "../richtpl.config";
-import { NextRequest, NextResponse } from "next/server";
-
-const intlMiddleware = createMiddleware({
-  locales,
-  localePrefix,
-  pathnames,
-  defaultLocale: richtplConfig.i18n.defaultLocale,
-});
-
-export function middleware(request: NextRequest) {
-  let response = intlMiddleware(request);
-  if (!response) {
-    response = NextResponse.next();
-  }
-  response.headers.set("x-pathname", request.nextUrl.pathname);
-  return response;
-}
-
-export const config = {
-  matcher: ["/", `/(ja|en)/:path*`],
-};
-```
-
-2. **matcher 設定**
-
-- matcher によって、どの URL パターンがミドルウェアの処理対象となるかを定義します。/(ja|en)/:path\* として、英語および日本語のページをカバーするように設定します。
-- 他の言語が追加される場合は、matcher にも追加する必要があります。
-
-### テーマ切り替えと i18n の実装例
-
-```typescript
-import { useState } from "react";
-import { useTheme } from "next-themes";
-import { useTranslations } from "next-intl";
-
-export default function Header() {
-  const { theme, setTheme } = useTheme();
-  const t = useTranslations("Header");
-
-  return (
-    <header>
-      <h1>{t("title")}</h1>
-      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-        {theme === "light" ? "ダークモード" : "ライトモード"}
-      </button>
-    </header>
-  );
-}
-```
-
-- このコードでは、テーマを切り替えるボタンと i18n 対応のテキストを実装しています。
-
-### FAQ
-
-#### Q: 他の言語を追加するにはどうすればいいですか？
-
-A: `richtpl.tsx`の`i18n`設定で、新しい言語を`locales`配列に追加し、`localeConfigs`に対応する設定を記載します。加えて、`middleware.ts`の`matcher`にも新しい言語を追加する必要があります。
-
-#### Q: テーマ切り替えはどのようにカスタマイズできますか？
-
-A: `themeConfig.colorMode`設定でデフォルトのテーマや切り替え可能なオプションをカスタマイズできます。また、`useTheme`フックを使用して、動的にテーマを切り替えることが可能です。
+質問やコントリビュートに関しては、[こちらのサイト](https://toakiryu.com/contact)からご連絡ください。
