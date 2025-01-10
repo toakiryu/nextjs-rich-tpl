@@ -35,11 +35,6 @@
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/fun117/nextjs-rich-tpl?style=social">
 </div>
 
-<p align="center">
-  <img alt="Desktop light image" src="https://github.com/Fun117/nextjs-rich-tpl/blob/main/public/image/upload/preview/en-light-fullscreen.png">
-  <img alt="Desktop dark image" src="https://github.com/Fun117/nextjs-rich-tpl/blob/main/public/image/upload/preview/en-dark-fullscreen.png">
-</p>
-
 # Next.js Rich Template
 
 This project provides a robust starting point for building modern web applications using Next.js. It includes pre-configured localization support, theme toggling, and various other features to streamline development.

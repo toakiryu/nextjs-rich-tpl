@@ -95,10 +95,18 @@ export async function generateMetadata(props: {
         config.themeConfig?.metadata?.openGraph?.siteName ||
         config.title ||
         t(`title`),
-      title:
-        config.themeConfig?.metadata?.openGraph?.title ||
-        config.title ||
-        t(`title`),
+      title: {
+        template: `%s | ${
+          config.themeConfig?.metadata?.openGraph?.title ||
+          config.title ||
+          t(`title`)
+        }`,
+        default: `${
+          config.themeConfig?.metadata?.openGraph?.title ||
+          config.title ||
+          t(`title`)
+        }`,
+      },
       description:
         config.themeConfig?.metadata?.openGraph?.description ||
         config.description ||
@@ -118,10 +126,18 @@ export async function generateMetadata(props: {
         config.themeConfig?.metadata?.creator ||
         "toakiryu"
       }`,
-      title:
-        config.themeConfig?.metadata?.twitter?.title ||
-        config.title ||
-        t(`title`),
+      title: {
+        template: `%s | ${
+          config.themeConfig?.metadata?.openGraph?.title ||
+          config.title ||
+          t(`title`)
+        }`,
+        default: `${
+          config.themeConfig?.metadata?.openGraph?.title ||
+          config.title ||
+          t(`title`)
+        }`,
+      },
       description:
         config.themeConfig?.metadata?.twitter?.description ||
         config.description ||
