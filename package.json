@@ -1,6 +1,6 @@
 {
   "name": "nextjs-rich-tpl",
-  "version": "15.1.2",
+  "version": "15.1.4",
   "private": true,
   "scripts": {
     "dev": "next dev",

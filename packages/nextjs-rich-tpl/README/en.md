@@ -44,15 +44,6 @@ Enter your project name: (my-nextjs-app)
 
 After the prompts, `nextjs-rich-tpl` will create a folder with your project name and install the necessary dependencies.
 
-## Dependencies
-
-This project depends on the following packages:
-
-- `chalk`: Adds color to command-line output
-- `cli-progress`: Displays progress bars
-- `inquirer`: Prompts for user input
-- `ora`: Shows loading animations
-
 ## License
 
 This project is licensed under the MIT License.

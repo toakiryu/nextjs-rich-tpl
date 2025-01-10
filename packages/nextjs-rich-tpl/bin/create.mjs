@@ -4,6 +4,8 @@ import { exec, spawn } from "child_process";
 import inquirer from "inquirer";
 import fs from "fs";
 import path from "path";
+import os from "os";
+import { rimraf } from "rimraf";
 import cliProgress from "cli-progress";
 import chalk from "chalk";
 import ora from "ora";
@@ -12,25 +14,32 @@ const templates = [
   {
     name: "app/with-i18n-routing",
     description: "Next.js app with i18n routing setup",
-    path: "examples/app/with-i18n-routing",
+    path: "templates/app/with-i18n-routing",
   },
   {
     name: "app/without-i18n-routing",
     description: "Next.js app without i18n routing setup",
-    path: "examples/app/without-i18n-routing",
+    path: "templates/app/without-i18n-routing",
   },
 ];
 
 let isCancelled = false;
 
+// プロセス中断時のクリーンアップ
 process.on("SIGINT", () => {
-  console.log(chalk.red("\nProcess interrupted. Cleaning up..."));
   isCancelled = true;
-
-  // 必要に応じてここにクリーンアップロジックを追加
-  // 例: 進行中の作業をキャンセル、リソースを解放するなど
+  console.log(chalk.red("\nProcess interrupted. Cleaning up..."));
+  cleanup();
   process.exit(1);
 });
+
+function cleanup(tmpDir) {
+  if (tmpDir && fs.existsSync(tmpDir)) {
+    console.log(chalk.blue("\nCleaning up temporary directory..."));
+    rimraf.sync(tmpDir);
+    console.log(chalk.gray("\nTemporary directory removed."));
+  }
+}
 
 // コマンドライン引数を解析
 const args = process.argv.slice(2);
@@ -139,6 +148,62 @@ async function installDependencies() {
   });
 }
 
+async function setupProject(selectedTemplate, targetPath) {
+  const tmpDir = path.join(os.tmpdir(), `nextjs-rich-tpl-${Date.now()}`);
+
+  try {
+    // 一時ディレクトリ作成
+    try {
+      fs.mkdirSync(tmpDir, { recursive: true });
+    } catch (error) {
+      console.error(chalk.red("Failed to create temporary directory:", error));
+      process.exit(1);
+    }
+
+    console.log(chalk.blue(`Using temporary directory: ${tmpDir}`));
+
+    // リポジトリを一時ディレクトリにクローン
+    console.log(chalk.blue("Cloning repository to temporary directory..."));
+    await runCommand(
+      `git clone https://github.com/Fun117/nextjs-rich-tpl.git ${tmpDir}`
+    );
+
+    // テンプレートのパスを構築
+    const templatePath = path.join(tmpDir, selectedTemplate.path);
+
+    // テンプレートが存在するか確認
+    if (!fs.existsSync(templatePath)) {
+      throw new Error(`Template path does not exist: ${templatePath}`);
+    }
+
+    // 必要なファイルを実行ディレクトリにコピー
+    console.log(chalk.blue("Copying template files to project directory..."));
+    const totalFilesToCopy = countFiles(templatePath);
+    const progressBar = showProgressBar(totalFilesToCopy, "Copying files");
+    try {
+      copyDirectory(templatePath, targetPath, progressBar);
+    } catch (error) {
+      console.error(chalk.red(`Error during copyDirectory: ${error.message}`));
+      console.error(chalk.gray(error.stack));
+      throw error;
+    }
+    progressBar.stop();
+
+    console.log(chalk.gray("Template files copied."));
+
+    // 依存関係をインストール
+    await installDependencies();
+
+    console.log(
+      chalk.green(`\nSuccess! Created ${projectName} at ${targetPath}\n`)
+    );
+  } catch (error) {
+    console.error(chalk.red("\nAn error occurred:", error));
+  } finally {
+    cleanup(tmpDir);
+  }
+}
+
 (async () => {
   if (!templateName || !projectName) {
     const answers = await inquirer.prompt([
@@ -178,66 +243,5 @@ async function installDependencies() {
     )
   );
 
-  try {
-    const repoUrl = "https://github.com/Fun117/nextjs-rich-tpl.git";
-    const cloneSpinner = ora("Cloning repository...").start();
-
-    await runCommand(
-      `git clone ${repoUrl} ${projectName}`
-    );
-    cloneSpinner.succeed("Repository cloned.");
-
-    console.log(
-      `\n${chalk.blue("Initializing project with template:")} ${chalk.green(
-        selectedTemplate.name
-      )}\n`
-    );
-    process.chdir(targetPath);
-    await runCommand(`git sparse-checkout set ${selectedTemplate.path}`);
-
-    const itemsToRemove = fs
-      .readdirSync(targetPath)
-      .filter((item) => item !== "examples");
-    const progressBarRemove = showProgressBar(
-      itemsToRemove.length,
-      "Removing files"
-    );
-
-    itemsToRemove.forEach((item) => {
-      const itemPath = path.join(targetPath, item);
-      fs.rmSync(itemPath, { recursive: true, force: true });
-      progressBarRemove.increment();
-    });
-
-    progressBarRemove.stop();
-    console.log(chalk.gray("Removed unnecessary files."));
-
-    const templatePath = path.join(targetPath, selectedTemplate.path);
-    const totalFilesToCopy = countFiles(templatePath);
-    const progressBarCopy = showProgressBar(totalFilesToCopy, "Copying files");
-
-    copyDirectory(templatePath, targetPath, progressBarCopy);
-    progressBarCopy.stop();
-
-    fs.rmSync(path.join(targetPath, "examples"), {
-      recursive: true,
-      force: true,
-    });
-    console.log(chalk.gray("Removed examples directory."));
-
-    await installDependencies();
-
-    console.log(
-      chalk.green(`\nSuccess! Created ${projectName} at ${targetPath}\n`)
-    );
-  } catch (error) {
-    console.error(
-      chalk.red("\nAn error occurred while setting up the project:", error)
-    );
-  }
+  await setupProject(selectedTemplate, targetPath);
 })();
-
-// 進行中の処理がある場合、キャンセルフラグをチェック
-if (isCancelled) {
-  console.log(chalk.yellow("Operation was cancelled."));
-}
