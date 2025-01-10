@@ -1,6 +1,6 @@
 {
   "name": "nextjs-rich-tpl",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "description": "A command-line tool to scaffold Next.js projects with rich templates and features.",
   "bin": {
@@ -28,12 +28,14 @@
     "cli"
   ],
   "dependencies": {
-    "chalk": "^5.3.0",
+    "chalk": "^5.4.1",
     "child_process": "^1.0.2",
     "cli-progress": "^3.12.0",
     "fs": "^0.0.1-security",
-    "inquirer": "^12.0.0",
-    "ora": "^8.1.0",
-    "path": "^0.12.7"
+    "inquirer": "^12.3.0",
+    "ora": "^8.1.1",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "rimraf": "^6.0.1"
   }
 }

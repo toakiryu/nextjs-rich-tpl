@@ -36,8 +36,8 @@ updates:
   # テンプレートの依存関係を一括でチェック
   - package-ecosystem: "npm"
     directories:
-      - "/examples/app/with-i18n-routing"
-      - "/examples/app/without-i18n-routing"
+      - "/templates/app/with-i18n-routing"
+      - "/templates/app/without-i18n-routing"
     schedule:
       interval: "daily"
     groups:
