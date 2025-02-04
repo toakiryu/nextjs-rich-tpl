@@ -15,6 +15,7 @@ import { ThemeProvider } from "next-themes";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { Provider } from "@/components/ui/provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -177,15 +178,17 @@ export default async function LocaleLayout({
         className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme={config.themeConfig.colorMode.defaultMode}
-          {...config.themeConfig.colorMode.custom}
-        >
-          <NextIntlClientProvider messages={messages}>
-            <main className="w-full h-full">{children}</main>
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <Provider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme={config.themeConfig.colorMode.defaultMode}
+            {...config.themeConfig.colorMode.custom}
+          >
+            <NextIntlClientProvider messages={messages}>
+              <main className="w-full h-full">{children}</main>
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );

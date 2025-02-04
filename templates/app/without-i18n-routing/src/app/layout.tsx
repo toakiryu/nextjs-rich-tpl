@@ -21,6 +21,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 // next-theme
 import { ThemeProvider } from "next-themes";
+import { Provider } from "@/components/ui/provider";
 
 export async function generateMetadata(): Promise<Metadata> {
   const lang = await getLocale();
@@ -133,15 +134,17 @@ export default async function LocaleLayout({
         className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme={config.themeConfig.colorMode.defaultMode}
-          {...config.themeConfig.colorMode.custom}
-        >
-          <NextIntlClientProvider messages={messages}>
-            <main className="w-full h-full">{children}</main>
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <Provider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme={config.themeConfig.colorMode.defaultMode}
+            {...config.themeConfig.colorMode.custom}
+          >
+            <NextIntlClientProvider messages={messages}>
+              <main className="w-full h-full">{children}</main>
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );

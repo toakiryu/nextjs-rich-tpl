@@ -1,17 +1,33 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { Button, ButtonGroup, EmptyState, VStack } from "@chakra-ui/react";
+import { OctagonAlert } from "lucide-react";
 
 export default function Error({ error, reset }: { error: any; reset: any }) {
-  const t = useTranslations("PageError");
-  console.log(error)
+  console.log(error);
 
   return (
-    <div className="flex justify-center items-center w-full h-full min-h-[calc(100dvh-64px)]">
-      <div className="flex flex-col gap-3">
-        <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <button onClick={reset}>{t("retry")}</button>
-      </div>
+    <div className=" fixed w-full h-full flex justify-center items-center">
+      <EmptyState.Root size="lg">
+        <EmptyState.Content>
+          <EmptyState.Indicator>
+            <OctagonAlert />
+          </EmptyState.Indicator>
+          <VStack textAlign="center">
+            <EmptyState.Title>ERROR 500</EmptyState.Title>
+            <EmptyState.Description>{error}</EmptyState.Description>
+          </VStack>
+          <ButtonGroup>
+            <Button
+              variant="outline"
+              onClick={reset}
+              className="inline-flex shrink-0 justify-center items-center border select-none rounded-md px-[15px] hover:opacity-75 active:scale-95 transition-all duration-200 ease-in-out"
+            >
+              Retry
+            </Button>
+          </ButtonGroup>
+        </EmptyState.Content>
+      </EmptyState.Root>
     </div>
   );
 }

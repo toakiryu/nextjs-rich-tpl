@@ -24,11 +24,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        working-directory: examples/app/with-i18n-routing
+        working-directory: templates/app/with-i18n-routing
         run: npm install
 
       - name: Build
-        working-directory: examples/app/with-i18n-routing
+        working-directory: templates/app/with-i18n-routing
         run: npm run build
 
   build-without-i18n:
@@ -38,9 +38,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        working-directory: examples/app/without-i18n-routing
+        working-directory: templates/app/without-i18n-routing
         run: npm install
 
       - name: Build
-        working-directory: examples/app/without-i18n-routing
+        working-directory: templates/app/without-i18n-routing
         run: npm run build
