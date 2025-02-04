@@ -8,7 +8,7 @@ rm -rf node_modules
 rm -f package-lock.json
 
 # Clean up each example template
-for dir in examples/*; do
+for dir in templates/*; do
     if [ -d "$dir" ]; then
         echo "Cleaning $dir..."
         for tpl_dir in $dir/*; do
