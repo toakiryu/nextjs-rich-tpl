@@ -2,28 +2,10 @@
 
 echo "Cleaning up unnecessary files..."
 
-# Remove root-level files and directories
-rm -rf .next
-rm -rf node_modules
-rm -f package-lock.json
+# プロジェクト全体を検索して .next と node_modules を削除
+find . -type d \( -name ".next" -o -name "node_modules" \) -prune -exec rm -rf {} +
 
-# Clean up each example template
-for dir in templates/*; do
-    if [ -d "$dir" ]; then
-        echo "Cleaning $dir..."
-        for tpl_dir in $dir/*; do
-            if [ -d "$tpl_dir" ]; then
-                echo "Cleaning $tpl_dir..."
-                rm -rf -v "$tpl_dir/.next"
-                rm -rf -v "$tpl_dir/node_modules"
-                rm -f -v "$tpl_dir/package-lock.json"
-            else
-                echo "Skipping $tpl_dir (not a template)"
-            fi
-        done
-    else
-        echo "Skipping $dir (not a directory)"
-    fi
-done
+# ルートの package-lock.json も削除
+rm -f package-lock.json
 
 echo "Cleanup completed."
