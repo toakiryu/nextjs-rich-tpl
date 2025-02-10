@@ -16,6 +16,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Provider } from "@/components/ui/provider";
+import { ColorModeProvider } from "@/components/ui/color-mode";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -179,7 +180,7 @@ export default async function LocaleLayout({
         suppressHydrationWarning
       >
         <Provider>
-          <ThemeProvider
+          <ColorModeProvider
             attribute="class"
             defaultTheme={config.themeConfig.colorMode.defaultMode}
             {...config.themeConfig.colorMode.custom}
@@ -187,7 +188,7 @@ export default async function LocaleLayout({
             <NextIntlClientProvider messages={messages}>
               <main className="w-full h-full">{children}</main>
             </NextIntlClientProvider>
-          </ThemeProvider>
+          </ColorModeProvider>
         </Provider>
       </body>
     </html>

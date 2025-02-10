@@ -37,6 +37,7 @@ updates:
   - package-ecosystem: "npm"
     directories:
       - "/templates/app/with-i18n-routing"
+      - "/templates/app/without-i18n"
       - "/templates/app/without-i18n-routing"
     schedule:
       interval: "daily"
