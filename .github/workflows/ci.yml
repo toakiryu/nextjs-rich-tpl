@@ -17,7 +17,7 @@ jobs:
         working-directory: .
         run: npm run build
 
-  build-with-i18n:
+  build-with-i18n-routing:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -32,6 +32,20 @@ jobs:
         run: npm run build
 
   build-without-i18n:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        working-directory: templates/app/without-i18n
+        run: npm install
+
+      - name: Build
+        working-directory: templates/app/without-i18n
+        run: npm run build
+
+  build-without-i18n-routing:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

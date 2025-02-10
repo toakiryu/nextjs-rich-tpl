@@ -15,33 +15,17 @@ const geistMono = Geist_Mono({
 // config
 import config from "../../richtpl.config";
 
-// next-intl (i18n)
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
-
 // next-theme
-import { ThemeProvider } from "next-themes";
 import { Provider } from "@/components/ui/provider";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const lang = await getLocale();
-  const t = await getTranslations({ lang, namespace: "metadata" });
-
   return {
     title: {
-      template: `%s | ${
-        config.themeConfig?.metadata?.title || config.title || t(`title`)
-      }`,
-      default: `${
-        config.themeConfig?.metadata?.title || config.title || t(`title`)
-      }`,
+      template: `%s | ${config.themeConfig?.metadata?.title || config.title}`,
+      default: `${config.themeConfig?.metadata?.title || config.title}`,
     },
-    description: `${
-      config.themeConfig?.metadata?.title ||
-      config.description ||
-      t(`description`)
-    }`,
+    description: `${config.themeConfig?.metadata?.title || config.description}`,
     referrer:
       config.themeConfig?.metadata?.referrer || "origin-when-cross-origin",
     keywords: config.themeConfig?.metadata?.keywords || ["Vercel", "Next.js"],
@@ -59,25 +43,18 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       url: config.url,
       siteName:
-        config.themeConfig?.metadata?.openGraph?.siteName ||
-        config.title ||
-        t(`title`),
+        config.themeConfig?.metadata?.openGraph?.siteName || config.title,
       title: {
         template: `%s | ${
-          config.themeConfig?.metadata?.openGraph?.title ||
-          config.title ||
-          t(`title`)
+          config.themeConfig?.metadata?.openGraph?.title || config.title
         }`,
         default: `${
-          config.themeConfig?.metadata?.openGraph?.title ||
-          config.title ||
-          t(`title`)
+          config.themeConfig?.metadata?.openGraph?.title || config.title
         }`,
       },
       description:
         config.themeConfig?.metadata?.openGraph?.description ||
-        config.description ||
-        t(`description`),
+        config.description,
       images:
         config.themeConfig.metadata?.openGraph?.images ||
         config.themeConfig.image,
@@ -92,20 +69,15 @@ export async function generateMetadata(): Promise<Metadata> {
       }`,
       title: {
         template: `%s | ${
-          config.themeConfig?.metadata?.openGraph?.title ||
-          config.title ||
-          t(`title`)
+          config.themeConfig?.metadata?.openGraph?.title || config.title
         }`,
         default: `${
-          config.themeConfig?.metadata?.openGraph?.title ||
-          config.title ||
-          t(`title`)
+          config.themeConfig?.metadata?.openGraph?.title || config.title
         }`,
       },
       description:
         config.themeConfig?.metadata?.twitter?.description ||
-        config.description ||
-        t(`description`),
+        config.description,
       creator: `@${
         config.themeConfig?.metadata?.twitter?.creator ||
         config.themeConfig?.metadata?.creator ||
@@ -124,13 +96,8 @@ export default async function LocaleLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const locale = await getLocale();
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
-
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang="ja" suppressHydrationWarning>
       <body
         className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
@@ -141,9 +108,7 @@ export default async function LocaleLayout({
             defaultTheme={config.themeConfig.colorMode.defaultMode}
             {...config.themeConfig.colorMode.custom}
           >
-            <NextIntlClientProvider messages={messages}>
-              <main className="w-full h-full">{children}</main>
-            </NextIntlClientProvider>
+            <main className="w-full h-full">{children}</main>
           </ColorModeProvider>
         </Provider>
       </body>

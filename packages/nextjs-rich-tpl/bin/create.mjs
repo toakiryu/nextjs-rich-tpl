@@ -17,6 +17,11 @@ const templates = [
     path: "templates/app/with-i18n-routing",
   },
   {
+    name: "app/without-i18n",
+    description: "Next.js app without i18n setup",
+    path: "templates/app/without-i18n",
+  },
+  {
     name: "app/without-i18n-routing",
     description: "Next.js app without i18n routing setup",
     path: "templates/app/without-i18n-routing",
