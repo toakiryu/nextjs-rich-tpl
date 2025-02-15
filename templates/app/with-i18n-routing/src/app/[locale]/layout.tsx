@@ -94,7 +94,6 @@ export async function generateMetadata(props: {
       url: config.url,
       siteName:
         config.themeConfig?.metadata?.openGraph?.siteName ||
-        config.themeConfig?.metadata?.title || 
         config.title ||
         t(`title`),
       title: {
