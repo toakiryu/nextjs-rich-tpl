@@ -43,17 +43,23 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       url: config.url,
       siteName:
-        config.themeConfig?.metadata?.openGraph?.siteName || config.title,
+        config.themeConfig?.metadata?.openGraph?.siteName ||
+        config.title,
       title: {
         template: `%s | ${
-          config.themeConfig?.metadata?.openGraph?.title || config.title
+          config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
+          config.title
         }`,
         default: `${
-          config.themeConfig?.metadata?.openGraph?.title || config.title
+          config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
+          config.title
         }`,
       },
       description:
         config.themeConfig?.metadata?.openGraph?.description ||
+        config.themeConfig?.metadata?.description ||
         config.description,
       images:
         config.themeConfig.metadata?.openGraph?.images ||
@@ -69,14 +75,19 @@ export async function generateMetadata(): Promise<Metadata> {
       }`,
       title: {
         template: `%s | ${
-          config.themeConfig?.metadata?.openGraph?.title || config.title
+          config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
+          config.title
         }`,
         default: `${
-          config.themeConfig?.metadata?.openGraph?.title || config.title
+          config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
+          config.title
         }`,
       },
       description:
         config.themeConfig?.metadata?.twitter?.description ||
+        config.themeConfig?.metadata?.description ||
         config.description,
       creator: `@${
         config.themeConfig?.metadata?.twitter?.creator ||

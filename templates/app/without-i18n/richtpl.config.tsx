@@ -17,6 +17,8 @@ const config: Config = {
   // Base URL pathname (for GitHub Pages deployment)
   baseUrl: "/",
 
+  title: "nextjs-rich-tpl",
+
   // GitHub deployment configuration
   organizationName: "toakiryu", // GitHub organization/user name
   projectName: "nextjs-rich-tpl", // GitHub repository name
