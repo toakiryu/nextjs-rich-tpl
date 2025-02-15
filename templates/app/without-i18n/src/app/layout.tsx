@@ -20,83 +20,54 @@ import { Provider } from "@/components/ui/provider";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 
 export async function generateMetadata(): Promise<Metadata> {
+  // titleの値を判別
+  const titleData = config.themeConfig?.metadata?.title;
+  let title: string;
+  if (typeof titleData === "string") {
+    title = titleData;
+  } else if (titleData && "default" in titleData) {
+    title = titleData.default;
+  } else if (titleData && "absolute" in titleData) {
+    title = titleData.absolute;
+  } else {
+    title = config.title;
+  }
+
   return {
     title: {
-      template: `%s | ${config.themeConfig?.metadata?.title || config.title}`,
-      default: `${config.themeConfig?.metadata?.title || config.title}`,
+      template: `%s | ${config.title}`,
+      default: config.title,
     },
-    description: `${config.themeConfig?.metadata?.title || config.description}`,
-    referrer:
-      config.themeConfig?.metadata?.referrer || "origin-when-cross-origin",
-    keywords: config.themeConfig?.metadata?.keywords || ["Vercel", "Next.js"],
-    authors: config.themeConfig?.metadata?.authors || [
+    description: config.description,
+    referrer: "origin-when-cross-origin",
+    keywords: ["Vercel", "Next.js"],
+    authors: config.themeConfig?.metadata?.authors ?? [
       { name: "Toa Kiryu", url: "https://toakiryu.com" },
     ],
-    creator: config.themeConfig?.metadata?.creator || "Toa Kiryu",
-    icons: config.favicon || "/favicon.ico",
-    generator: config.themeConfig?.metadata?.generator || "Next.js",
-    publisher: config.themeConfig?.metadata?.publisher || "Vercel",
-    robots: config.themeConfig?.metadata?.robots || "follow, index",
-    metadataBase:
-      config.themeConfig?.metadata?.metadataBase || new URL(config.url),
+    creator: "Toa Kiryu",
+    icons: config.favicon ?? "/favicon.ico",
+    generator: "Next.js",
+    publisher: "Vercel",
+    robots: "follow, index",
+    metadataBase: new URL(config.url),
     openGraph: {
       type: "website",
       url: config.url,
-      siteName:
-        config.themeConfig?.metadata?.openGraph?.siteName ||
-        config.title,
-      title: {
-        template: `%s | ${
-          config.themeConfig?.metadata?.openGraph?.title ||
-          config.themeConfig?.metadata?.title ||
-          config.title
-        }`,
-        default: `${
-          config.themeConfig?.metadata?.openGraph?.title ||
-          config.themeConfig?.metadata?.title ||
-          config.title
-        }`,
-      },
+      siteName: config.title,
+      title: title,
       description:
-        config.themeConfig?.metadata?.openGraph?.description ||
-        config.themeConfig?.metadata?.description ||
-        config.description,
-      images:
-        config.themeConfig.metadata?.openGraph?.images ||
-        config.themeConfig.image,
-      locale: config.themeConfig?.metadata?.openGraph?.locale || "ja-JP",
+        config.themeConfig?.metadata?.description ?? config.description,
+      images: config.themeConfig.image,
+      locale: "ja-JP",
     },
     twitter: {
       card: "summary_large_image",
-      site: `@${
-        config.themeConfig?.metadata?.twitter?.site ||
-        config.themeConfig?.metadata?.creator ||
-        "Toa Kiryu"
-      }`,
-      title: {
-        template: `%s | ${
-          config.themeConfig?.metadata?.openGraph?.title ||
-          config.themeConfig?.metadata?.title ||
-          config.title
-        }`,
-        default: `${
-          config.themeConfig?.metadata?.openGraph?.title ||
-          config.themeConfig?.metadata?.title ||
-          config.title
-        }`,
-      },
+      site: `@${config.themeConfig?.metadata?.creator ?? "Toa Kiryu"}`,
+      title: title,
       description:
-        config.themeConfig?.metadata?.twitter?.description ||
-        config.themeConfig?.metadata?.description ||
-        config.description,
-      creator: `@${
-        config.themeConfig?.metadata?.twitter?.creator ||
-        config.themeConfig?.metadata?.creator ||
-        "Toa Kiryu"
-      }`,
-      images:
-        config.themeConfig.metadata?.twitter?.images ||
-        config.themeConfig.image,
+        config.themeConfig?.metadata?.description ?? config.description,
+      creator: `@${config.themeConfig?.metadata?.creator ?? "Toa Kiryu"}`,
+      images: config.themeConfig.image,
     },
     ...config.themeConfig?.metadata,
   };
