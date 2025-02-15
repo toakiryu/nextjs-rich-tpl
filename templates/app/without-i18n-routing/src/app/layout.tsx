@@ -20,7 +20,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 // next-theme
-import { ThemeProvider } from "next-themes";
 import { Provider } from "@/components/ui/provider";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 
@@ -60,22 +59,26 @@ export async function generateMetadata(): Promise<Metadata> {
       url: config.url,
       siteName:
         config.themeConfig?.metadata?.openGraph?.siteName ||
+        config.themeConfig?.metadata?.title ||
         config.title ||
         t(`title`),
       title: {
         template: `%s | ${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
         default: `${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
       },
       description:
         config.themeConfig?.metadata?.openGraph?.description ||
+        config.themeConfig?.metadata?.title || 
         config.description ||
         t(`description`),
       images:
@@ -93,17 +96,20 @@ export async function generateMetadata(): Promise<Metadata> {
       title: {
         template: `%s | ${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
         default: `${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
       },
       description:
         config.themeConfig?.metadata?.twitter?.description ||
+        config.themeConfig?.metadata?.title || 
         config.description ||
         t(`description`),
       creator: `@${

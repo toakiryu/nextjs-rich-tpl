@@ -94,22 +94,26 @@ export async function generateMetadata(props: {
       url: config.url,
       siteName:
         config.themeConfig?.metadata?.openGraph?.siteName ||
+        config.themeConfig?.metadata?.title ||
         config.title ||
         t(`title`),
       title: {
         template: `%s | ${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
         default: `${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
       },
       description:
         config.themeConfig?.metadata?.openGraph?.description ||
+        config.themeConfig?.metadata?.title ||
         config.description ||
         t(`description`),
       images:
@@ -130,17 +134,20 @@ export async function generateMetadata(props: {
       title: {
         template: `%s | ${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
         default: `${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
       },
       description:
         config.themeConfig?.metadata?.twitter?.description ||
+        config.themeConfig?.metadata?.title ||
         config.description ||
         t(`description`),
       creator: `@${

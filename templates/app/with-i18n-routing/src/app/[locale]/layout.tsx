@@ -9,12 +9,11 @@ import config from "../../../richtpl.config";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 
-// next-theme
-import { ThemeProvider } from "next-themes";
 
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+
 import { Provider } from "@/components/ui/provider";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 
@@ -100,17 +99,20 @@ export async function generateMetadata(props: {
       title: {
         template: `%s | ${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
         default: `${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
       },
       description:
         config.themeConfig?.metadata?.openGraph?.description ||
+        config.themeConfig?.metadata?.title ||
         config.description ||
         t(`description`),
       images:
@@ -131,6 +133,7 @@ export async function generateMetadata(props: {
       title: {
         template: `%s | ${
           config.themeConfig?.metadata?.openGraph?.title ||
+          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
@@ -142,6 +145,7 @@ export async function generateMetadata(props: {
       },
       description:
         config.themeConfig?.metadata?.twitter?.description ||
+        config.themeConfig?.metadata?.title ||
         config.description ||
         t(`description`),
       creator: `@${
