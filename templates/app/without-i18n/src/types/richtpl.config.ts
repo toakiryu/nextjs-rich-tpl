@@ -25,7 +25,7 @@ type ThemeConfig = {
  * Includes basic site information, i18n settings, and theme configuration.
  */
 interface Config {
-  title?: string; // Site title
+  title: string; // Site title
   description?: string; // Site description
   tagline: string; // Site tagline
   favicon?: string; // URL to the favicon

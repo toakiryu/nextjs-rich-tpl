@@ -94,7 +94,6 @@ export async function generateMetadata(props: {
       url: config.url,
       siteName:
         config.themeConfig?.metadata?.openGraph?.siteName ||
-        config.themeConfig?.metadata?.title ||
         config.title ||
         t(`title`),
       title: {
@@ -113,7 +112,7 @@ export async function generateMetadata(props: {
       },
       description:
         config.themeConfig?.metadata?.openGraph?.description ||
-        config.themeConfig?.metadata?.title ||
+        config.themeConfig?.metadata?.description ||
         config.description ||
         t(`description`),
       images:
@@ -147,7 +146,7 @@ export async function generateMetadata(props: {
       },
       description:
         config.themeConfig?.metadata?.twitter?.description ||
-        config.themeConfig?.metadata?.title ||
+        config.themeConfig?.metadata?.description ||
         config.description ||
         t(`description`),
       creator: `@${

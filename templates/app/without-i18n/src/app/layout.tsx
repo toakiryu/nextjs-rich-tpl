@@ -44,7 +44,6 @@ export async function generateMetadata(): Promise<Metadata> {
       url: config.url,
       siteName:
         config.themeConfig?.metadata?.openGraph?.siteName ||
-        config.themeConfig?.metadata?.title ||
         config.title,
       title: {
         template: `%s | ${
@@ -60,7 +59,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
       description:
         config.themeConfig?.metadata?.openGraph?.description ||
-        config.themeConfig?.metadata?.title ||
+        config.themeConfig?.metadata?.description ||
         config.description,
       images:
         config.themeConfig.metadata?.openGraph?.images ||
@@ -88,7 +87,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
       description:
         config.themeConfig?.metadata?.twitter?.description ||
-        config.themeConfig?.metadata?.title ||
+        config.themeConfig?.metadata?.description ||
         config.description,
       creator: `@${
         config.themeConfig?.metadata?.twitter?.creator ||
