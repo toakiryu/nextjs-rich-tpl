@@ -100,7 +100,6 @@ export async function generateMetadata(props: {
       title: {
         template: `%s | ${
           config.themeConfig?.metadata?.openGraph?.title ||
-          config.themeConfig?.metadata?.title ||
           config.title ||
           t(`title`)
         }`,
