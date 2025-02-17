@@ -87,6 +87,26 @@ Once the command is executed, you'll be guided through the following steps:
 
 To deploy to the cloud, use [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) (see the official [documentation](https://nextjs.org/docs/deployment)).
 
+# 搭載ライブラリ
+
+## i18n
+
+- [next-intl](https://next-intl.dev/)
+
+## icon
+
+- [Lucide](https://lucide.dev/)
+- [tabler icons](https://tabler.io/icons)
+
+## UI
+- [shadcn/ui](https://ui.shadcn.com/)
+  - 拡張ライブラリ [Magic UI](https://magicui.design/)
+- [Chakra UI](https://www.chakra-ui.com/)
+
+## トーストコンポーネント
+
+- [sonner](https://sonner.emilkowal.ski/)
+
 # Contributing
 
 We welcome contributions to improve both the documentation and the project itself. Contributors will be acknowledged in this README. For details, visit the [GitHub repository](https://github.com/toakiryu/nextjs-rich-tpl).

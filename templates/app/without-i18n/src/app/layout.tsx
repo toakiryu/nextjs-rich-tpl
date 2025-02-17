@@ -19,6 +19,8 @@ import config from "../../richtpl.config";
 import { Provider } from "@/components/ui/provider";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 
+import { Toaster } from "sonner";
+
 export async function generateMetadata(): Promise<Metadata> {
   // titleの値を判別
   const titleData = config.themeConfig?.metadata?.title;
@@ -91,6 +93,7 @@ export default async function LocaleLayout({
             {...config.themeConfig.colorMode.custom}
           >
             <main className="w-full h-full">{children}</main>
+            <Toaster />
           </ColorModeProvider>
         </Provider>
       </body>

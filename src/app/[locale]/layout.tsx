@@ -9,13 +9,14 @@ import config from "../../../richtpl.config";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 
-// next-theme
-import { ThemeProvider } from "next-themes";
-
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+
 import { Provider } from "@/components/ui/provider";
+import { ColorModeProvider } from "@/components/ui/color-mode";
+
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -149,15 +150,16 @@ export default async function LocaleLayout({
         suppressHydrationWarning
       >
         <Provider>
-          <ThemeProvider
+          <ColorModeProvider
             attribute="class"
             defaultTheme={config.themeConfig.colorMode.defaultMode}
             {...config.themeConfig.colorMode.custom}
           >
             <NextIntlClientProvider messages={messages}>
               <main className="w-full h-full">{children}</main>
+              <Toaster />
             </NextIntlClientProvider>
-          </ThemeProvider>
+          </ColorModeProvider>
         </Provider>
       </body>
     </html>

@@ -23,6 +23,8 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { Provider } from "@/components/ui/provider";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 
+import { Toaster } from "sonner";
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: "metadata" });
@@ -115,6 +117,7 @@ export default async function LocaleLayout({
           >
             <NextIntlClientProvider messages={messages}>
               <main className="w-full h-full">{children}</main>
+              <Toaster />
             </NextIntlClientProvider>
           </ColorModeProvider>
         </Provider>

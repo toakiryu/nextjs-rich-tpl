@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "@/components/ui/LocaleSwitcher";
-import { ColorModeSwitcher } from "@/components/ui/colorModeSwitcher";
+import { ColorModeButton } from "@/components/ui/color-mode";
 
 export default function Home() {
   const t = useTranslations("pages.home");
@@ -102,7 +102,7 @@ export default function Home() {
           />
           {t("go to <domain>", { domain: "nextjs.org" })} →
         </a>
-        <ColorModeSwitcher />
+        <ColorModeButton/>
         <LocaleSwitcher />
       </footer>
     </div>
