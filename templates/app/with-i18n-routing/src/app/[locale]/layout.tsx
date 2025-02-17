@@ -16,6 +16,8 @@ import { routing } from "@/i18n/routing";
 import { Provider } from "@/components/ui/provider";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 
+import { Toaster } from "sonner";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -155,6 +157,7 @@ export default async function LocaleLayout({
           >
             <NextIntlClientProvider messages={messages}>
               <main className="w-full h-full">{children}</main>
+              <Toaster />
             </NextIntlClientProvider>
           </ColorModeProvider>
         </Provider>

@@ -87,6 +87,26 @@ npx nextjs-rich-tpl
 
 クラウドにデプロイするには、[Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) を使用してください（公式 [documentation](https://nextjs.org/docs/deployment) を参照）。
 
+# 搭載ライブラリ
+
+## i18n
+
+- [next-intl](https://next-intl.dev/)
+
+## icon
+
+- [Lucide](https://lucide.dev/)
+- [tabler icons](https://tabler.io/icons)
+
+## UI
+- [shadcn/ui](https://ui.shadcn.com/)
+  - 拡張ライブラリ [Magic UI](https://magicui.design/)
+- [Chakra UI](https://www.chakra-ui.com/)
+
+## トーストコンポーネント
+
+- [sonner](https://sonner.emilkowal.ski/)
+
 # コントリビュート
 
 ドキュメントやプロジェクト自体を改善するための貢献を歓迎します。コントリビューターは、この README で紹介されます。詳細は、[GitHub リポジトリ](https://github.com/toakiryu/nextjs-rich-tpl)をご確認ください。
