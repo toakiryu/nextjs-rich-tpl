@@ -19,11 +19,9 @@ import config from "../../richtpl.config";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
-// next-theme
-import { Provider } from "@/components/ui/provider";
-import { ColorModeProvider } from "@/components/ui/color-mode";
-
 import { Toaster } from "sonner";
+
+import { ThemeProvider } from "next-themes";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -106,21 +104,20 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
         suppressHydrationWarning
       >
-        <Provider>
-          <ColorModeProvider
-            attribute="class"
-            defaultTheme={config.themeConfig.colorMode.defaultMode}
-            {...config.themeConfig.colorMode.custom}
-          >
-            <NextIntlClientProvider messages={messages}>
-              <main className="w-full h-full">{children}</main>
-              <Toaster />
-            </NextIntlClientProvider>
-          </ColorModeProvider>
-        </Provider>
+        <ThemeProvider
+          attribute="class"
+          disableTransitionOnChange
+          defaultTheme={config.themeConfig.colorMode.defaultMode}
+          {...config.themeConfig.colorMode.custom}
+        >
+          <NextIntlClientProvider messages={messages}>
+            <main className="w-full h-full">{children}</main>
+            <Toaster />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -101,7 +101,6 @@ npx nextjs-rich-tpl
 ## UI
 - [shadcn/ui](https://ui.shadcn.com/)
   - 拡張ライブラリ [Magic UI](https://magicui.design/)
-- [Chakra UI](https://www.chakra-ui.com/)
 
 ## トーストコンポーネント
 

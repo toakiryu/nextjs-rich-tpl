@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ColorModeButton } from "@/components/ui/color-mode";
+import { ColorModeToggle } from "@/components/ui/color-mode-toggle.tsx";
 
 export default function Home() {
   return (
@@ -98,7 +98,7 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-        <ColorModeButton />
+        <ColorModeToggle />
       </footer>
     </div>
   );

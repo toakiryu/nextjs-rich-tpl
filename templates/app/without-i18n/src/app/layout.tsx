@@ -15,11 +15,9 @@ const geistMono = Geist_Mono({
 // config
 import config from "../../richtpl.config";
 
-// next-theme
-import { Provider } from "@/components/ui/provider";
-import { ColorModeProvider } from "@/components/ui/color-mode";
-
 import { Toaster } from "sonner";
+
+import { ThemeProvider } from "next-themes";
 
 export async function generateMetadata(): Promise<Metadata> {
   // titleの値を判別
@@ -83,19 +81,18 @@ export default async function LocaleLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body
-        className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
         suppressHydrationWarning
       >
-        <Provider>
-          <ColorModeProvider
-            attribute="class"
-            defaultTheme={config.themeConfig.colorMode.defaultMode}
-            {...config.themeConfig.colorMode.custom}
-          >
-            <main className="w-full h-full">{children}</main>
-            <Toaster />
-          </ColorModeProvider>
-        </Provider>
+        <ThemeProvider
+          attribute="class"
+          disableTransitionOnChange
+          defaultTheme={config.themeConfig.colorMode.defaultMode}
+          {...config.themeConfig.colorMode.custom}
+        >
+          <main className="w-full h-full">{children}</main>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

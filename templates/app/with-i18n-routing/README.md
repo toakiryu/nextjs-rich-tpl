@@ -101,7 +101,6 @@ To deploy to the cloud, use [Vercel](https://vercel.com/new?utm_source=github&ut
 ## UI
 - [shadcn/ui](https://ui.shadcn.com/)
   - 拡張ライブラリ [Magic UI](https://magicui.design/)
-- [Chakra UI](https://www.chakra-ui.com/)
 
 ## トーストコンポーネント
 

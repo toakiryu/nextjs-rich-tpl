@@ -10,8 +10,8 @@
     "clean": "./clean.sh"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.6.0",
     "@emotion/react": "^11.14.0",
+    "@radix-ui/react-slot": "^1.1.2",
     "@tabler/icons-react": "^3.30.0",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",

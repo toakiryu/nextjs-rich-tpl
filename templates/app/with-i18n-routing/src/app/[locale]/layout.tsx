@@ -13,10 +13,9 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 
-import { Provider } from "@/components/ui/provider";
-import { ColorModeProvider } from "@/components/ui/color-mode";
-
 import { Toaster } from "sonner";
+
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -146,21 +145,20 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`relative w-full h-full overflow-x-clip ${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
         suppressHydrationWarning
       >
-        <Provider>
-          <ColorModeProvider
-            attribute="class"
-            defaultTheme={config.themeConfig.colorMode.defaultMode}
-            {...config.themeConfig.colorMode.custom}
-          >
-            <NextIntlClientProvider messages={messages}>
-              <main className="w-full h-full">{children}</main>
-              <Toaster />
-            </NextIntlClientProvider>
-          </ColorModeProvider>
-        </Provider>
+        <ThemeProvider
+          attribute="class"
+          disableTransitionOnChange
+          defaultTheme={config.themeConfig.colorMode.defaultMode}
+          {...config.themeConfig.colorMode.custom}
+        >
+          <NextIntlClientProvider messages={messages}>
+            <main className="w-full h-full">{children}</main>
+            <Toaster />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
