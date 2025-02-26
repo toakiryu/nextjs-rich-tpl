@@ -6,9 +6,19 @@ import config from "../../richtpl.config";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const result: MetadataRoute.Sitemap = [];
 
+  // localePrefix に応じて異なる処理を行う
+  const isLocalePrefixAsNeeded = config.i18n.localePrefix === "as-needed";
+
   for (const lang of config.i18n.locales) {
     const langConfig = config.i18n.localeConfigs[lang];
-    const homeUrl = `${config.url}/${langConfig.path}`;
+    const isDefaultLocale = lang === config.i18n.defaultLocale;
+
+    // `localePrefix` に応じたホームURLの生成
+    const homeUrl = isLocalePrefixAsNeeded
+      ? isDefaultLocale
+        ? config.url
+        : `${config.url}/${langConfig.path}`
+      : `${config.url}/${langConfig.path}`;
 
     result.push({
       url: homeUrl,
@@ -18,8 +28,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       alternates: {
         languages: config.i18n.locales.reduce<{ [key: string]: string }>(
           (acc, l) => {
-            const langConfig = config.i18n.localeConfigs[l];
-            acc[langConfig.htmlLang] = `${config.url}/${langConfig.path}`;
+            const lConfig = config.i18n.localeConfigs[l];
+            acc[lConfig.htmlLang] = l === config.i18n.defaultLocale 
+              ? config.url 
+              : `${config.url}/${lConfig.path}`;
             return acc;
           },
           {}
@@ -39,10 +51,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ) {
           const pagePath = path.join(dirPath, item.name, "page.tsx");
           if (fs.existsSync(pagePath)) {
-            const url = `${config.url}/${langConfig.path}/${item.name}`;
+            // `localePrefix` に応じたURLの生成
+            const pageUrl = isLocalePrefixAsNeeded
+              ? isDefaultLocale
+                ? `${config.url}/${item.name}`
+                : `${config.url}/${langConfig.path}/${item.name}`
+              : `${config.url}/${langConfig.path}/${item.name}`;
 
             result.push({
-              url: url,
+              url: pageUrl,
               lastModified: new Date().toISOString(),
               changeFrequency: "daily",
               priority: 0.7,
@@ -50,10 +67,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                 languages: config.i18n.locales.reduce<{
                   [key: string]: string;
                 }>((acc, l) => {
-                  const langConfig = config.i18n.localeConfigs[l];
-                  acc[
-                    langConfig.htmlLang
-                  ] = `${config.url}/${langConfig.path}/${item.name}`;
+                  const lConfig = config.i18n.localeConfigs[l];
+                  acc[lConfig.htmlLang] = l === config.i18n.defaultLocale 
+                    ? `${config.url}/${item.name}`
+                    : `${config.url}/${lConfig.path}/${item.name}`;
                   return acc;
                 }, {}),
               },
