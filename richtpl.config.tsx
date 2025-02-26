@@ -1,10 +1,10 @@
-import Config from "@/types/richtpl.config";
+import siteConfigType from "@/types/richtpl.config";
 
 /**
  * Site configuration object.
  * Contains general site information, i18n settings, and theme configuration.
  */
-const config: Config = {
+const siteConfig: siteConfigType = {
   // Tagline for the site
   tagline: "Next.js Template",
 
@@ -43,6 +43,7 @@ const config: Config = {
       },
     },
     selectButton: true, // Option to include a locale selection button
+    localePrefix: "as-needed",
   },
 
   // Theme and layout configuration
@@ -89,4 +90,4 @@ const config: Config = {
   },
 };
 
-export default config;
+export default siteConfig;
