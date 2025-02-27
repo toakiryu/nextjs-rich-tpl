@@ -57,19 +57,11 @@
 
 テンプレートを Vercel にデプロイするか、StackBlitz でプレビューすることができます：
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/toakiryu/nextjs-rich-tpl/tree/main/examples/app/with-i18n-routing&project-name=nextjs-rich-tpl&repository-name=nextjs-rich-tpl)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/toakiryu/nextjs-rich-tpl/tree/main/templates/app/with-i18n-routing&project-name=nextjs-rich-tpl&repository-name=nextjs-rich-tpl)
 
 ## 使い方
 
 プロジェクトをブートストラップするには、CLI を使用します：
-
-### インストール
-
-以下のコマンドを使用して、`nextjs-rich-tpl` をグローバルにインストールできます。
-
-```bash
-npm install -g nextjs-rich-tpl
-```
 
 ### CLI の使い方
 
