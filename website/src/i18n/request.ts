@@ -1,7 +1,7 @@
-import config from "../../richtpl.config";
 import { getRequestConfig } from "next-intl/server";
 import deepmerge from "deepmerge";
 import { routing } from "./routing";
+import config from "../../richtpl.config";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   // This typically corresponds to the `[locale]` segment
