@@ -35,7 +35,7 @@ export default function LocaleSwitcherSelect({
       suppressHydrationWarning
       className={clsx(
         "relative",
-        isPending && "transition-opacity [&:disabled]:opacity-30"
+        isPending && "transition-opacity disabled:opacity-30"
       )}
     >
       <p className="sr-only">{label}</p>

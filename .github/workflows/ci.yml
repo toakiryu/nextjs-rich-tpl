@@ -3,18 +3,28 @@ name: CI
 on: [pull_request]
 
 jobs:
-  build-root:
+  build-website:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Check for changes
+        id: changes
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=1
+          if git diff --quiet origin/${{ github.base_ref }} -- website; then
+            echo "skip=true" >> $GITHUB_ENV
+          fi
+
       - name: Install dependencies
-        working-directory: .
+        if: env.skip != 'true'
+        working-directory: website
         run: npm install
 
       - name: Build
-        working-directory: .
+        if: env.skip != 'true'
+        working-directory: website
         run: npm run build
 
   build-with-i18n-routing:
@@ -23,11 +33,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Check for changes
+        id: changes
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=1
+          if git diff --quiet origin/${{ github.base_ref }} -- templates/app/with-i18n-routing; then
+            echo "skip=true" >> $GITHUB_ENV
+          fi
+
       - name: Install dependencies
+        if: env.skip != 'true'
         working-directory: templates/app/with-i18n-routing
         run: npm install
 
       - name: Build
+        if: env.skip != 'true'
         working-directory: templates/app/with-i18n-routing
         run: npm run build
 
@@ -37,11 +57,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Check for changes
+        id: changes
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=1
+          if git diff --quiet origin/${{ github.base_ref }} -- templates/app/without-i18n; then
+            echo "skip=true" >> $GITHUB_ENV
+          fi
+
       - name: Install dependencies
+        if: env.skip != 'true'
         working-directory: templates/app/without-i18n
         run: npm install
 
       - name: Build
+        if: env.skip != 'true'
         working-directory: templates/app/without-i18n
         run: npm run build
 
@@ -51,10 +81,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Check for changes
+        id: changes
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=1
+          if git diff --quiet origin/${{ github.base_ref }} -- templates/app/without-i18n-routing; then
+            echo "skip=true" >> $GITHUB_ENV
+          fi
+
       - name: Install dependencies
+        if: env.skip != 'true'
         working-directory: templates/app/without-i18n-routing
         run: npm install
 
       - name: Build
+        if: env.skip != 'true'
         working-directory: templates/app/without-i18n-routing
         run: npm run build
