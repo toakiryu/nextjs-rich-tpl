@@ -2,7 +2,7 @@
 
 import { Locale, setUserLocale } from "@/services/locale";
 import clsx from "clsx";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, ReactNode, useTransition } from "react";
 
 type Props = {
@@ -18,8 +18,6 @@ export default function LocaleSwitcherSelect({
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const pathname = usePathname();
-  const params = useParams();
 
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextLocale = event.target.value as Locale;
