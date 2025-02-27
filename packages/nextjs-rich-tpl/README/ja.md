@@ -17,14 +17,6 @@ Next.js Rich Template は、Next.js アプリケーションの迅速なセッ�
 - 依存関係のインストールをサポート
 - 進捗バーでユーザーに進行状況を表示
 
-## インストール
-
-以下のコマンドを使用して、`nextjs-rich-tpl` をグローバルにインストールできます。
-
-```bash
-npm install -g nextjs-rich-tpl
-```
-
 ## 使い方
 
 `nextjs-rich-tpl` を使用して新しいNext.jsアプリを開始することをお勧めします。 プロジェクトを作成するには

@@ -17,14 +17,6 @@ The Next.js Rich Template is a CLI tool that helps quickly set up Next.js applic
 - Support for dependency installation
 - Progress bar to display user progress
 
-## Installation
-
-You can globally install `nextjs-rich-tpl` using the following command:
-
-```bash
-npm install -g nextjs-rich-tpl
-```
-
 ## Usage
 
 We recommend starting a new Next.js application using `nextjs-rich-tpl`. To create a project, run:
