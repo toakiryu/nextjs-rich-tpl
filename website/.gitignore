@@ -40,3 +40,6 @@ test/
 
 ._*
 package-lock.json
+
+# next-intl
+/.translations/

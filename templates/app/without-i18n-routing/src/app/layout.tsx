@@ -2,6 +2,19 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// config
+import config from "../../richtpl.config";
+
+// next-intl (i18n)
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
+
+import { headers } from "next/headers";
+
+import { Toaster } from "sonner";
+
+import { ThemeProvider } from "next-themes";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -12,35 +25,55 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// config
-import config from "../../richtpl.config";
-
-// next-intl (i18n)
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
-
-import { Toaster } from "sonner";
-
-import { ThemeProvider } from "next-themes";
+export type LayoutProps = Readonly<{
+  children: React.ReactNode;
+}>;
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: "metadata" });
 
+  const header = await headers();
+  const origin = header.get("x-origin") ?? config.url;
+  const url = header.get("x-url") ?? config.url;
+  const pathname = header.get("x-pathname");
+  const path = pathname ? pathname : "";
+
+  const generateAlternates = () => {
+    const alternates: {
+      canonical: string;
+      languages: { [key: string]: string };
+    } = {
+      canonical: `${config.url}${path}`,
+      languages: {},
+    };
+
+    for (const locale of config.i18n.locales) {
+      const localeConfig = config.i18n.localeConfigs[locale];
+      const cleanPath = path.replace(`/${locale}`, ""); // Remove current locale from path
+      alternates.languages[
+        localeConfig.htmlLang
+      ] = `${config.url}/${localeConfig.path}${cleanPath}`;
+    }
+
+    return alternates;
+  };
+
   // titleの値を判別
   const titleData = config.themeConfig?.metadata?.title;
-  let title: string;
-  if (t.has(`title`)) {
-    title = t(`title`);
-  } else if (typeof titleData === "string") {
-    title = titleData;
-  } else if (titleData && "default" in titleData) {
-    title = titleData.default;
-  } else if (titleData && "absolute" in titleData) {
-    title = titleData.absolute;
-  } else {
-    title = config.title;
-  }
+  const title = t.has(`title.default`)
+    ? t(`title.default`)
+    : t.has(`title`)
+    ? t(`title`)
+    : typeof titleData === "string"
+    ? titleData
+    : titleData && "default" in titleData
+    ? titleData.default
+    : titleData && "absolute" in titleData
+    ? titleData.absolute
+    : config.title
+    ? config.title
+    : "Next.js Rich Tpl";
 
   const description =
     (t.has(`description`) && t(`description`)) ||
@@ -49,8 +82,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: {
-      template: `%s | ${(t.has(`title`) && t(`title`)) ?? config.title}`,
-      default: `${(t.has(`title`) && t(`title`)) ?? config.title}`,
+      template: `%s | ${t.has(`title.template`) ? t(`title.template`) : title}`,
+      default: `${title}`,
     },
     description: description,
     referrer: "origin-when-cross-origin",
@@ -61,14 +94,11 @@ export async function generateMetadata(): Promise<Metadata> {
     generator: "Next.js",
     publisher: "Vercel",
     robots: "follow, index",
-    metadataBase:
-      config.themeConfig?.metadata?.metadataBase ?? new URL(config.url),
+    alternates: generateAlternates(),
     openGraph: {
       type: "website",
-      url: config.url,
       siteName: title,
-      title: title,
-      description: description,
+      url: url,
       images:
         config.themeConfig.metadata?.openGraph?.images ??
         config.themeConfig.image,
@@ -80,22 +110,19 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       site: `@${config.themeConfig?.metadata?.creator ?? "toakiryu"}`,
-      title: title,
-      description: description,
       creator: `@${config.themeConfig?.metadata?.creator ?? "toakiryu"}`,
       images:
         config.themeConfig.metadata?.twitter?.images ??
         config.themeConfig.image,
     },
     ...config.themeConfig?.metadata,
+    metadataBase: new URL(
+      origin ?? config.themeConfig?.metadata?.metadataBase ?? config.url
+    ),
   };
 }
 
-export default async function LocaleLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function LocaleLayout({ children }: LayoutProps) {
   const locale = await getLocale();
   // Providing all messages to the client
   // side is the easiest way to get started

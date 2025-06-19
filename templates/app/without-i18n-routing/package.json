@@ -3,10 +3,11 @@
   "version": "15.2.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run mergeTranslations && next dev",
+    "build": "npm run mergeTranslations && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "mergeTranslations": "node ./.job/mergeTranslations.js"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.0",

@@ -77,7 +77,6 @@ const siteConfig: siteConfigType = {
       generator: "Next.js",
       publisher: "Vercel",
       robots: "follow, index",
-      metadataBase: new URL("https://nextjs-rich-tpl.toakiryu.com"),
     },
     // Sitemap Configuration
     sitemap: {

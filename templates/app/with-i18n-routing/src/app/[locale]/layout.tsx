@@ -27,17 +27,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export type LayoutProps = {
-  locale: string;
-};
+export type LayoutProps = Readonly<{
+  children: React.ReactNode;
+  params: Promise<{
+    locale: string;
+  }>;
+}>;
 
-export async function generateMetadata(props: {
-  params: LayoutProps;
-}): Promise<Metadata> {
-  const { locale } = await props.params;
+export async function generateMetadata({
+  params,
+}: LayoutProps): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   const header = await headers();
+  const origin = header.get("x-origin") ?? config.url;
+  const url = header.get("x-url") ?? config.url;
   const pathname = header.get("x-pathname");
   const path = pathname ? pathname : "";
 
@@ -63,18 +68,19 @@ export async function generateMetadata(props: {
 
   // titleの値を判別
   const titleData = config.themeConfig?.metadata?.title;
-  let title: string;
-  if (t.has(`title`)) {
-    title = t(`title`);
-  } else if (typeof titleData === "string") {
-    title = titleData;
-  } else if (titleData && "default" in titleData) {
-    title = titleData.default;
-  } else if (titleData && "absolute" in titleData) {
-    title = titleData.absolute;
-  } else {
-    title = config.title;
-  }
+  const title = t.has(`title.default`)
+    ? t(`title.default`)
+    : t.has(`title`)
+    ? t(`title`)
+    : typeof titleData === "string"
+    ? titleData
+    : titleData && "default" in titleData
+    ? titleData.default
+    : titleData && "absolute" in titleData
+    ? titleData.absolute
+    : config.title
+    ? config.title
+    : "Next.js Rich Tpl";
 
   const description =
     (t.has(`description`) && t(`description`)) ||
@@ -83,8 +89,8 @@ export async function generateMetadata(props: {
 
   return {
     title: {
-      template: `%s | ${(t.has(`title`) && t(`title`)) ?? config.title}`,
-      default: `${(t.has(`title`) && t(`title`)) ?? config.title}`,
+      template: `%s | ${t.has(`title.template`) ? t(`title.template`) : title}`,
+      default: `${title}`,
     },
     description: description,
     referrer: "origin-when-cross-origin",
@@ -95,15 +101,11 @@ export async function generateMetadata(props: {
     generator: "Next.js",
     publisher: "Vercel",
     robots: "follow, index",
-    metadataBase:
-      config.themeConfig?.metadata?.metadataBase ?? new URL(config.url),
     alternates: generateAlternates(),
     openGraph: {
       type: "website",
-      url: config.url,
       siteName: title,
-      title: title,
-      description: description,
+      url: url,
       images:
         config.themeConfig.metadata?.openGraph?.images ??
         config.themeConfig.image,
@@ -115,24 +117,19 @@ export async function generateMetadata(props: {
     twitter: {
       card: "summary_large_image",
       site: `@${config.themeConfig?.metadata?.creator ?? "toakiryu"}`,
-      title: title,
-      description: description,
       creator: `@${config.themeConfig?.metadata?.creator ?? "toakiryu"}`,
       images:
         config.themeConfig.metadata?.twitter?.images ??
         config.themeConfig.image,
     },
     ...config.themeConfig?.metadata,
+    metadataBase: new URL(
+      origin ?? config.themeConfig?.metadata?.metadataBase ?? config.url
+    ),
   };
 }
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: Readonly<{
-  children: React.ReactNode;
-  params: LayoutProps;
-}>) {
+export default async function LocaleLayout({ children, params }: LayoutProps) {
   const { locale } = await params;
   if (!routing.locales.includes(locale as any)) {
     notFound();
