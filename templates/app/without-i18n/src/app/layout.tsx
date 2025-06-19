@@ -15,28 +15,34 @@ const geistMono = Geist_Mono({
 // config
 import config from "../../richtpl.config";
 
+import { headers } from "next/headers";
+
 import { Toaster } from "sonner";
 
 import { ThemeProvider } from "next-themes";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const header = await headers();
+  const origin = header.get("x-origin") ?? config.url;
+  const url = header.get("x-url") ?? config.url;
+
   // titleの値を判別
   const titleData = config.themeConfig?.metadata?.title;
-  let title: string;
-  if (typeof titleData === "string") {
-    title = titleData;
-  } else if (titleData && "default" in titleData) {
-    title = titleData.default;
-  } else if (titleData && "absolute" in titleData) {
-    title = titleData.absolute;
-  } else {
-    title = config.title;
-  }
+  const title =
+    typeof titleData === "string"
+      ? titleData
+      : titleData && "default" in titleData
+      ? titleData.default
+      : titleData && "absolute" in titleData
+      ? titleData.absolute
+      : config.title
+      ? config.title
+      : "Next.js Rich Tpl";
 
   return {
     title: {
-      template: `%s | ${config.title}`,
-      default: config.title,
+      template: `%s | ${title}`,
+      default: title,
     },
     description: config.description,
     referrer: "origin-when-cross-origin",
@@ -49,27 +55,23 @@ export async function generateMetadata(): Promise<Metadata> {
     generator: "Next.js",
     publisher: "Vercel",
     robots: "follow, index",
-    metadataBase: new URL(config.url),
     openGraph: {
       type: "website",
-      url: config.url,
-      siteName: config.title,
-      title: title,
-      description:
-        config.themeConfig?.metadata?.description ?? config.description,
+      siteName: title,
+      url: url,
       images: config.themeConfig.image,
       locale: "ja-JP",
     },
     twitter: {
       card: "summary_large_image",
       site: `@${config.themeConfig?.metadata?.creator ?? "Toa Kiryu"}`,
-      title: title,
-      description:
-        config.themeConfig?.metadata?.description ?? config.description,
       creator: `@${config.themeConfig?.metadata?.creator ?? "Toa Kiryu"}`,
       images: config.themeConfig.image,
     },
     ...config.themeConfig?.metadata,
+        metadataBase: new URL(
+      origin ?? config.themeConfig?.metadata?.metadataBase ?? config.url
+    ),
   };
 }
 

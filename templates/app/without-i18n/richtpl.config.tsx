@@ -54,7 +54,6 @@ const config: Config = {
       generator: "Next.js",
       publisher: "Vercel",
       robots: "follow, index",
-      metadataBase: new URL("https://nextjs-rich-tpl.toakiryu.com"),
 
       title: {
         template: "%s | Next.js Rich Tpl",
