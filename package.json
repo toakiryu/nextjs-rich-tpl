@@ -1,0 +1,10 @@
+{
+  "name": "@nextjs-rich-tpl/root",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "cd": "node ./scripts/cd.mjs",
+    "cleanup": "node ./scripts/cleanMacJunkFiles.mjs"
+  },
+  "license": "MIT"
+}
