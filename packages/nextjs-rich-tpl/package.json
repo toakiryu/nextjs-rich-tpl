@@ -30,6 +30,6 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "child_process": "^1.0.2",
-    "inquirer": "^12.9.0"
+    "inquirer": "^12.9.1"
   }
 }
