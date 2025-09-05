@@ -24,10 +24,10 @@ importers:
     dependencies:
       '@radix-ui/react-slot':
         specifier: ^1.2.3
-        version: 1.2.3(@types/react@19.1.8)(react@19.1.0)
+        version: 1.2.3(@types/react@19.1.12)(react@19.1.1)
       '@tabler/icons-react':
         specifier: ^3.34.1
-        version: 3.34.1(react@19.1.0)
+        version: 3.34.1(react@19.1.1)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -39,25 +39,25 @@ importers:
         version: 4.3.1
       lucide-react:
         specifier: ^0.536.0
-        version: 0.536.0(react@19.1.0)
+        version: 0.536.0(react@19.1.1)
       next:
         specifier: 15.4.6
-        version: 15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 15.4.6(react-dom@19.1.0(react@19.1.1))(react@19.1.1)
       next-intl:
         specifier: ^4.3.4
-        version: 4.3.4(next@15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
+        version: 4.3.4(next@15.4.6(react-dom@19.1.0(react@19.1.1))(react@19.1.1))(react@19.1.1)(typescript@5.8.3)
       next-themes:
         specifier: ^0.4.6
-        version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 0.4.6(react-dom@19.1.0(react@19.1.1))(react@19.1.1)
       react:
-        specifier: ^19.1.0
-        version: 19.1.0
+        specifier: ^19.1.1
+        version: 19.1.1
       react-dom:
         specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
+        version: 19.1.0(react@19.1.1)
       sonner:
         specifier: ^2.0.7
-        version: 2.0.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 2.0.7(react-dom@19.1.0(react@19.1.1))(react@19.1.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -76,10 +76,10 @@ importers:
         version: 24.1.0
       '@types/react':
         specifier: ^19
-        version: 19.1.8
+        version: 19.1.12
       '@types/react-dom':
         specifier: ^19
-        version: 19.1.6(@types/react@19.1.8)
+        version: 19.1.6(@types/react@19.1.12)
       eslint:
         specifier: ^9
         version: 9.33.0(jiti@2.4.2)
@@ -676,8 +676,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.0.0
 
-  '@types/react@19.1.8':
-    resolution: {integrity: sha512-AwAfQ2Wa5bCx9WP8nZL2uMZWod7J7/JSplxbTmBQ5ms6QpqNYm672H0Vu9ZVKVngQ+ii4R/byguVEUZQyeg44g==}
+  '@types/react@19.1.12':
+    resolution: {integrity: sha512-cMoR+FoAf/Jyq6+Df2/Z41jISvGZZ2eTlnsaJRptmZ76Caldwy1odD4xTr/gNV9VLj0AWgg/nmkevIyUfIIq5w==}
 
   '@typescript-eslint/eslint-plugin@8.39.0':
     resolution: {integrity: sha512-bhEz6OZeUR+O/6yx9Jk6ohX6H9JSFTaiY0v9/PuKT3oGK0rn0jNplLmyFUGV+a9gfYnVNwGDwS/UkLIuXNb2Rw==}
@@ -1842,8 +1842,8 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  react@19.1.0:
-    resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
+  react@19.1.1:
+    resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
     engines: {node: '>=0.10.0'}
 
   reflect.getprototypeof@1.0.10:
@@ -2552,18 +2552,18 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@radix-ui/react-compose-refs@1.1.2(@types/react@19.1.8)(react@19.1.0)':
+  '@radix-ui/react-compose-refs@1.1.2(@types/react@19.1.12)(react@19.1.1)':
     dependencies:
-      react: 19.1.0
+      react: 19.1.1
     optionalDependencies:
-      '@types/react': 19.1.8
+      '@types/react': 19.1.12
 
-  '@radix-ui/react-slot@1.2.3(@types/react@19.1.8)(react@19.1.0)':
+  '@radix-ui/react-slot@1.2.3(@types/react@19.1.12)(react@19.1.1)':
     dependencies:
-      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.8)(react@19.1.0)
-      react: 19.1.0
+      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.12)(react@19.1.1)
+      react: 19.1.1
     optionalDependencies:
-      '@types/react': 19.1.8
+      '@types/react': 19.1.12
 
   '@rtsao/scc@1.1.0': {}
 
@@ -2575,10 +2575,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@tabler/icons-react@3.34.1(react@19.1.0)':
+  '@tabler/icons-react@3.34.1(react@19.1.1)':
     dependencies:
       '@tabler/icons': 3.34.1
-      react: 19.1.0
+      react: 19.1.1
 
   '@tabler/icons@3.34.1': {}
 
@@ -2669,11 +2669,11 @@ snapshots:
     dependencies:
       undici-types: 7.8.0
 
-  '@types/react-dom@19.1.6(@types/react@19.1.8)':
+  '@types/react-dom@19.1.6(@types/react@19.1.12)':
     dependencies:
-      '@types/react': 19.1.8
+      '@types/react': 19.1.12
 
-  '@types/react@19.1.8':
+  '@types/react@19.1.12':
     dependencies:
       csstype: 3.1.3
 
@@ -3791,9 +3791,9 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lucide-react@0.536.0(react@19.1.0):
+  lucide-react@0.536.0(react@19.1.1):
     dependencies:
-      react: 19.1.0
+      react: 19.1.1
 
   magic-string@0.30.17:
     dependencies:
@@ -3838,30 +3838,30 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next-intl@4.3.4(next@15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(typescript@5.8.3):
+  next-intl@4.3.4(next@15.4.6(react-dom@19.1.0(react@19.1.1))(react@19.1.1))(react@19.1.1)(typescript@5.8.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.10
       negotiator: 1.0.0
-      next: 15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react: 19.1.0
-      use-intl: 4.3.4(react@19.1.0)
+      next: 15.4.6(react-dom@19.1.0(react@19.1.1))(react@19.1.1)
+      react: 19.1.1
+      use-intl: 4.3.4(react@19.1.1)
     optionalDependencies:
       typescript: 5.8.3
 
-  next-themes@0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next-themes@0.4.6(react-dom@19.1.0(react@19.1.1))(react@19.1.1):
     dependencies:
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
+      react: 19.1.1
+      react-dom: 19.1.0(react@19.1.1)
 
-  next@15.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next@15.4.6(react-dom@19.1.0(react@19.1.1))(react@19.1.1):
     dependencies:
       '@next/env': 15.4.6
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001734
       postcss: 8.4.31
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      styled-jsx: 5.1.6(react@19.1.0)
+      react: 19.1.1
+      react-dom: 19.1.0(react@19.1.1)
+      styled-jsx: 5.1.6(react@19.1.1)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.4.6
       '@next/swc-darwin-x64': 15.4.6
@@ -3983,14 +3983,14 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-dom@19.1.0(react@19.1.0):
+  react-dom@19.1.0(react@19.1.1):
     dependencies:
-      react: 19.1.0
+      react: 19.1.1
       scheduler: 0.26.0
 
   react-is@16.13.1: {}
 
-  react@19.1.0: {}
+  react@19.1.1: {}
 
   reflect.getprototypeof@1.0.10:
     dependencies:
@@ -4160,10 +4160,10 @@ snapshots:
       is-arrayish: 0.3.2
     optional: true
 
-  sonner@2.0.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  sonner@2.0.7(react-dom@19.1.0(react@19.1.1))(react@19.1.1):
     dependencies:
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
+      react: 19.1.1
+      react-dom: 19.1.0(react@19.1.1)
 
   source-map-js@1.2.1: {}
 
@@ -4238,10 +4238,10 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  styled-jsx@5.1.6(react@19.1.0):
+  styled-jsx@5.1.6(react@19.1.1):
     dependencies:
       client-only: 0.0.1
-      react: 19.1.0
+      react: 19.1.1
 
   supports-color@7.2.0:
     dependencies:
@@ -4368,12 +4368,12 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  use-intl@4.3.4(react@19.1.0):
+  use-intl@4.3.4(react@19.1.1):
     dependencies:
       '@formatjs/fast-memoize': 2.2.7
       '@schummar/icu-type-parser': 1.21.5
       intl-messageformat: 10.7.16
-      react: 19.1.0
+      react: 19.1.1
 
   which-boxed-primitive@1.1.1:
     dependencies:
